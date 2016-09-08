@@ -1,0 +1,9 @@
+portal: portal.cloudpassage.com
+grid: grid.cloudpassage.com
+repo: packages.cloudpassage.com
+api_hostname : https://api.cloudpassage.com
+port: 443
+key_id: 
+secret_key: 
+windows_syslog_host: 
+windows_syslog_port: 514
