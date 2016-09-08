@@ -1,17 +1,22 @@
+"""HaloEvent connector settings"""
+
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
 
-class Settings(object):
-    def per_page(self):
-        return 100
+def per_page():
+    """max events return per page"""
+    return 100
 
-    def pagination_limit(self):
-        return 50
+def pagination_limit():
+    """max page return"""
+    return 50
 
-    def historical_limit(self):
-        return 90
+def historical_limit():
+    """max days"""
 
-    def threads(self):
-        return 5
+    return 90
 
+def threads():
+    """max parallel threads"""
+    return 5

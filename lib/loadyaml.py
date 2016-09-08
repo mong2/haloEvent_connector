@@ -1,19 +1,29 @@
+"""This module contains methods that load different yml file"""
 import os
 import yaml
 
-rsyslog_config = os.path.join(os.path.dirname(__file__), '../configs/rsyslog.yml')
-portal_config = os.path.join(os.path.dirname(__file__), '../configs/portal.yml')
-cef_config = os.path.join(os.path.dirname(__file__), '../configs/cef.yml')
-leef_config = os.path.join(os.path.dirname(__file__), '../configs/leef.yml')
+
+RSYSLOG_CONFIG = os.path.join(os.path.dirname(__file__), '../configs/rsyslog.yml')
+PORTAL_CONFIG = os.path.join(os.path.dirname(__file__), '../configs/portal.yml')
+CEF_CONFIG = os.path.join(os.path.dirname(__file__), '../configs/cef.yml')
+LEEF_CONFIG = os.path.join(os.path.dirname(__file__), '../configs/leef.yml')
+
 
 def load_rsyslog():
-	return yaml.load(file(rsyslog_config, 'r'))
+    """This method load the rsyslog.yml"""
+    return yaml.load(file(RSYSLOG_CONFIG, 'r'))
+
 
 def load_portal():
-	return yaml.load(file(portal_config, 'r'))
+    """This method load the portal.yml"""
+    return yaml.load(file(PORTAL_CONFIG, 'r'))
+
 
 def load_cef():
-	return yaml.load(file(cef_config, 'r'))
+    """This method load the cef.yml"""
+    return yaml.load(file(CEF_CONFIG, 'r'))
+
 
 def load_leef():
-	return yaml.load(file(leef_config, 'r'))
+    """This method load the leef.yml"""
+    return yaml.load(file(LEEF_CONFIG, 'r'))

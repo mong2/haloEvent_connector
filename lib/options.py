@@ -1,5 +1,6 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
+"""options"""
 import argparse
 
 
@@ -26,6 +27,7 @@ parser.add_argument('--kvsyslog', default=False, action='store_true', help='Writ
 
 
 class Options(object):
+    """options class"""
     def __new__(cls):
         args = vars(parser.parse_args())
         return args
