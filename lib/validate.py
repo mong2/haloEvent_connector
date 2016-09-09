@@ -13,7 +13,7 @@ def validate_time(date):
     try:
         dateutil.parser.parse(date)
     except:
-        raise ValueError(date + "is not in iso8601 time format")
+        raise ValueError(date + " is not in iso8601 time format")
 
 def validate_time_range(date):
     """validate time range"""

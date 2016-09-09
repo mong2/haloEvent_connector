@@ -36,7 +36,6 @@ class Event(object):
         self.key_id = key_id
         self.secret_key = secret_key
         self.data_dir = os.path.join(os.path.dirname(__file__), os.pardir, 'data')
-        self.config_dir = os.path.join(os.path.dirname(__file__), os.pardir, 'configs', 'configdir')
 
     def create_halo_session_object(self):
         """create halo session object"""
@@ -119,12 +118,13 @@ class Event(object):
     def initial_date(self):
         """grab the starting date"""
 
-        config_files = os.listdir(self.config_dir)
+        config_files = os.listdir(self.args["configdir"])
         if config_files:
             for i in config_files:
-                key_id, date = i.split("_")
-                if self.key_id == key_id:
-                    return self.normalize_date(date)
+                if "_" in i:
+                    key_id, date = i.split("_")
+                    if self.key_id == key_id:
+                        return self.normalize_date(date)
         return self.args['starting']
 
     def customize_date(self, date):
@@ -143,11 +143,11 @@ class Event(object):
         end_date = self.customize_date(end_date)
         initial_date = self.customize_date(self.initial_date())
 
-        original = os.path.join(self.config_dir, "%s_%s" % (self.key_id, initial_date))
-        new = os.path.join(self.config_dir, "%s_%s" % (self.key_id, end_date))
+        original = os.path.join(self.args["configdir"], "%s_%s" % (self.key_id, initial_date))
+        new = os.path.join(self.args["configdir"], "%s_%s" % (self.key_id, end_date))
 
-        files = os.listdir(self.config_dir)
-        if files:
+        files = os.listdir(self.args["configdir"])
+        if any(self.key_id in filename for filename in files):
             self.utility.rename(original, new)
         else:
             newfile = open(new, 'w')

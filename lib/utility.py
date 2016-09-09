@@ -97,21 +97,32 @@ class Utility(object):
         """determine starting date"""
         if self.options["starting"] and self.options["configdir"] is None:
             validate.starting(self.options["starting"])
-            return None
+            return self.options["starting"]
         elif self.options["starting"] is None and self.options["configdir"]:
             return self.parse_configdir()
         else:
-            raise ValueError("Please choose either --starting or --configdir")
+            try:
+                return self.parse_configdir_file()[0]["end_date"]
+            except:
+                return self.options["starting"]
 
     def parse_configdir(self):
+        """determine config directory"""
+        if self.options["configdir"] is None:
+            return os.path.join(os.path.dirname(__file__), os.pardir, 'configs', 'configdir')
+        return self.options["configdir"]
+
+    def parse_configdir_file(self):
         """determine configdir date"""
         key_date = []
         files = os.listdir(self.options["configdir"])
         if files:
             for onefile in files:
-                key, end_date = onefile.split("_")
-                validate.starting(end_date)
-                key_date.append({"key_id": key, "end_date": end_date})
+                if not onefile.startswith('.'):
+                    if "_" in onefile:
+                        key, end_date = onefile.split("_")
+                        validate.starting(end_date)
+                        key_date.append({"key_id": key, "end_date": end_date})
         else:
             raise ValueError("Please use --starting to specify a starting date")
         return key_date
@@ -121,5 +132,6 @@ class Utility(object):
         self.options["api_keys"] = self.parse_auth()
         self.options["batchsize"] = self.parse_pagination_limit()
         self.options["threads"] = self.parse_threads()
-        self.options["configfiles"] = self.check_starting()
+        self.options["starting"] = self.check_starting()
+        self.options["configdir"] = self.parse_configdir()
         return self.options
