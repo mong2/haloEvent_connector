@@ -109,7 +109,7 @@ class Utility(object):
     def parse_configdir(self):
         """determine config directory"""
         if self.options["configdir"] is None:
-            return os.path.join(os.path.dirname(__file__), os.pardir, 'configs', 'configdir')
+            return os.path.join(os.path.dirname(__file__), os.pardir, 'configs')
         return self.options["configdir"]
 
     def parse_configdir_file(self):
