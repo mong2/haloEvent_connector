@@ -4,9 +4,11 @@ import json
 
 def format_json(batched):
     """Format raw data into json format"""
-    events = {}
-    events["events"] = batched
-    return json.dumps(events)
+    aggregated_events = []
+    for event in batched:
+        aggregated_events.append(json.dumps(event))
+        aggregated_events.append("\n")
+    return aggregated_events
 
 def format_kv(batched):
     """Format raw data into key-value format"""
