@@ -10,7 +10,7 @@ In this repo we have included the pdf documentation for using these scripts to p
 
 In addition, there are several ways you can run this script to stream event data to your desired target.
 
-For example, let's say, you wanted to setup this script to be run from cron, emit Halo events as key-value name pairs and append them to a file on the local filesystem. And you wanted to pull only those events that were logged since Nov 10, 2012 onwards. And instead of using the script defaults where the files are expected to be in the program directory, let's say you wanted to use a different working directory /opt/cloudpassage, for example.
+For example, let's say, you wanted to setup this script to be run from cron, emit Halo events as key-value name pairs and append them to a file on the local filesystem. And you wanted to pull only those events that were logged since Nov 10, 2012 onwards <b> (The furthrest date Halo can retrieve is 90 days from today) </b>. And instead of using the script defaults where the files are expected to be in the program directory, let's say you wanted to use a different working directory /opt/cloudpassage, for example.
 
 For that, you would do something like this:
 
