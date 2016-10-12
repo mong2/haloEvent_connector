@@ -76,10 +76,75 @@ optional arguments:
   --cefsyslog           Write events in CEF (ArcSight) format to syslog server
   --kvsyslog            Write events as key/value pairs to local syslog daemon
 ```
+### Halo Event Connector on Linux
 
+1. Install Python 2.7.11 or newer (https://www.python.org/downloads) 
+
+2. Once Python is installed, install the necessary Python modules
+
+```
+pip install python-dateutil
+pip install pytz
+```
+
+3. Download latest CloudPassage Halo API SDK (https://github.com/cloudpassage/cloudpassage-halo-python-sdk/tree/develop). 
+
+4. Install the SDK via cli by navigating to the downloaded expanded folder location and running 
+
+```
+pip install .
+```
+
+5. Download the Halo Event Connector (https://github.com/mong2/haloEvent_connector)
+
+6. Create the haloEvents.auth file
+
+7. Run the connector (currently must specify a starting cli parameter)
+
+```
+python halo_events.py --auth=haloEvents.py --starting=YYYY-MM-DD
+```
+
+### Halo Event Connector on Windows
+
+1. Install Python 2.7.11 or newer (https://www.python.org/downloads/windows/)
+
+2. Add python installation folder to system PATH environmental variable or create PYTHONPATH environmental variable and set installation folder location as follows (C:\Python27\lib;C:\Python27)
+
+3. Once Python is installed, install the necessary Python modules
+
+```
+python -m pip install python-dateutil
+python -m pip install pytz
+```
+
+4. Download latest CloudPassage Halo API SDK (https://github.com/cloudpassage/cloudpassage-halo-python-sdk/tree/develop). 
+
+5. Install the SDK via cli by navigating to the downloaded expanded folder location and running 
+
+```
+python -m pip install .
+```
+
+6. Download the Halo Event Connector (https://github.com/mong2/haloEvent_connector)
+
+7. Create the haloEvents.auth file
+
+8. Run the connector (currently must specify a starting cli parameter)
+
+```
+python halo_events.py --auth=haloEvents.py --starting=YYYY-MM-DD
+```
+
+#### Remote Syslog Windows
+* Navigate to `configs/portal.yml` you can specify the syslog host there via
+  
+  windows_syslog_host:
+  windows_syslog_port:
 
 
 <!---
 #CPTAGS:community-supported integration archive
 #TBICON:images/python_icon.png
 -->
+
