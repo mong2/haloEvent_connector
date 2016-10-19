@@ -10,6 +10,9 @@ from lib.rsyslog import Rsyslog
 import lib.validate as validate
 import lib.jsonkv as jsonkv
 import lib.settings as settings
+import sys
+reload(sys)
+sys.setdefaultencoding('utf-8')
 
 class Utility(object):
     """Utility class"""
