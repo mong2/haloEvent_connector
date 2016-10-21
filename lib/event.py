@@ -36,6 +36,8 @@ class Event(object):
         self.key_id = key_id
         self.secret_key = secret_key
         self.data_dir = os.path.join(os.path.dirname(__file__), os.pardir, 'data')
+        self.has_configdir = False
+        self.first_batch = True
 
     def create_halo_session_object(self):
         """create halo session object"""
@@ -127,6 +129,17 @@ class Event(object):
                         return self.normalize_date(date)
         return self.args['starting']
 
+
+    def check_config_exists(self):
+        """check if config dir timestamp exists"""
+        config_files = os.listdir(self.args["configdir"])
+        if config_files:
+            for i in config_files:
+                if "_" in i:
+                    key_id, date = i.split("_")
+                    if self.key_id == key_id:
+                        self.has_configdir = True
+
     def customize_date(self, date):
         """customize timestamp"""
 
@@ -134,7 +147,6 @@ class Event(object):
 
     def normalize_date(self, date):
         """normalizing timestamp"""
-
         return date.replace('+', ':')
 
     def file_exists_check(self, end_date):
@@ -158,11 +170,18 @@ class Event(object):
 
         end_date = self.initial_date()
         initial_event_id = self.latest_event("1", "", "1")["events"][0]["id"]
+        self.check_config_exists()
         while self.event_id_exist:
             batched = self.batch(end_date)
             start_date, end_date = self.loop_date(batched, end_date)
-            self.utility.output_events(batched)
-            print "Wrote: %s to %s" % (start_date, end_date)
             self.file_exists_check(end_date)
             if self.id_exists_check(batched, initial_event_id):
                 self.event_id_exist = False
+
+            if self.has_configdir and self.first_batch:
+                self.first_batch = False
+                batched.pop(0)
+
+            if batched:
+                self.utility.output_events(batched)
+                print "Wrote: %s to %s" % (start_date, end_date)
